@@ -13,7 +13,7 @@
   lineinfile:
     path: "{{ item }}"
     regexp: "^SystemGroup"
-    line: "SystemGroup {{ cups_admin_grp }}"
+    line: "SystemGroup {{ cups_admin_group }}"
   with_items:
     - "/etc/cups/cupsd.conf"
     - "/etc/cups/cups-files.conf"

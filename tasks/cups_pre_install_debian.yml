@@ -19,13 +19,13 @@
 
     - name: Add OpenPrinting Package repo
       apt_repository:
-        repo: "{{ cups_openprinting_repo }}"
+        repo: "{{ cups_openprinting_apt_repo }}"
         state: present
         update_cache: yes
   when: cups_openprinting_apt_required is defined and cups_openprinting_apt_required
 
 - name: Ensure expect related packages are installed to guide us through CUPS installation.
   package:
-    name: "{{ cups_expect_pkgs }}"
+    name: "{{ cups_expect_packages }}"
     state: present
   register: cups_expect_install
