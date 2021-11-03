@@ -1,5 +1,4 @@
 ---
-<<<<<<< HEAD
 - name: Install CUPS
   package:
     name: "{{ cups_packages_to_install }}"
@@ -18,20 +17,6 @@
   with_items:
     - "/etc/cups/cupsd.conf"
     - "/etc/cups/cups-files.conf"
-=======
-- name: Apt Packages Install CUPS
-  include: apt_cups_install.yml
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
-- name: Yum Packages Install CUPS
-  include: yum_cups_install.yml
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
-
-- name: Adds lpadmin group
-  group:
-    name: lpadmin
-    state: present
->>>>>>> pr9/master
 
 - name: Add accounts to lpadmin group (CUPS admin)
   user:
@@ -43,11 +28,4 @@
 
 - name: Include - CUPS-LPD
   include: cups_install_lpd.yml
-<<<<<<< HEAD
   when: cups_lpd
-=======
-  when: 
-    - (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
-    - cups_lpd
-...
->>>>>>> pr9/master
