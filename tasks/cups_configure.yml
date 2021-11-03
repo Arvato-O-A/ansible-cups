@@ -7,7 +7,7 @@
     group: "{{ cups_etc_files_perms_group }}"
     mode: "{{ cups_etc_files_mode }}"
   register: restart_required
-  when: cups_cupsd_conf_template|default("")
+  when: cups_cupsd_conf_template|default(false)
 
 - name: Copying over cups-browsed.conf using template if defined to {{ cups_etc_location }}/cups-browsed.conf.
   template:
@@ -17,7 +17,7 @@
     group: "{{ cups_etc_files_perms_group }}"
     mode: "{{ cups_etc_files_mode }}"
   register: restart_required
-  when: cups_cups_browsed_conf_template|default("")
+  when: cups_cups_browsed_conf_template|default(false)
 
 - name: Copying over snmp.conf using template if defined to {{ cups_etc_location }}/snmp.conf.
   template:
@@ -27,12 +27,12 @@
     group: "{{ cups_etc_files_perms_group }}"
     mode: "{{ cups_etc_files_mode }}"
   register: restart_required
-  when: cups_snmp_conf_template|default("")
+  when: cups_snmp_conf_template|default(false)
 
 - name: Include - Copy SSL certificates if necessary variables are defined - cups_source_ssl_{public,private}_key_location
   include: cups_install_ssl_cert.yml
   register: restart_required
-  when: (cups_source_ssl_private_key_location|default("")) and (cups_source_ssl_public_key_location|default(""))
+  when: (cups_source_ssl_private_key_location|default(false)) and (cups_source_ssl_public_key_location|default(false))
 
 - name: restart cups service(s)
   service:

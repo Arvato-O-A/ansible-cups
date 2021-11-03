@@ -6,10 +6,6 @@ cups_lpd_user: cupslpd
 
 cups_sysadmins_email: "sysadmins@{{ ansible_fqdn }}"
 
-cups_cupsd_conf_template: ""
-cups_cups_browsed_conf_template: ""
-cups_snmp_conf_template: ""
-
 cups_hplip: false
 cups_ricoh_openprinting_ppds: false
 cups_openprinting_apt_required: "{{ cups_ricoh_openprinting_ppds }}"
@@ -85,7 +81,7 @@ cups_etc_files_mode: 0644
 
 apt_cups_pre_install_packages:
   - "expect"
-  - "python-pexpect"
+  - "python3-pexpect"
 
 apt_cups_packages_to_install:
   - cups

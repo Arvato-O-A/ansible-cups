@@ -2,4 +2,4 @@
 
 cups_expect_packages:
     - "expect"
-    - "python-pexpect"
+    - "python3-pexpect"
