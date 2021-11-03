@@ -12,6 +12,7 @@
         append: yes
         groups: "{{ cups_admin_group }}"
 
+<<<<<<< HEAD
     - name: Copying over cups-lpd using cups-lpd.j2 template
       template:
         src: "cups-lpd.j2"
@@ -19,3 +20,13 @@
         owner: root
         group: root
         mode: 0644
+=======
+- name: Copying over cups-lpd using cups-lpd.j2 template
+  template:
+    src: "cups-lpd.j2"
+    dest: "{{cups_xinetd_location}}/cups-lpd"
+    owner: root
+    group: root
+    mode: 0755
+...
+>>>>>>> pr9/master

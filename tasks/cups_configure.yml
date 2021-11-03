@@ -40,5 +40,10 @@
     state: restarted
     enabled: yes
   with_items:
+<<<<<<< HEAD
     - "{{ cups_services }}"
   when: restart_required is defined and restart_required.changed
+=======
+    - "{{cups_services}}"
+...
+>>>>>>> pr9/master

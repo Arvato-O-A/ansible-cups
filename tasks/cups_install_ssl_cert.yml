@@ -15,4 +15,9 @@
     owner: root
     group: root
     mode: 0600
+<<<<<<< HEAD
     remote_src: true
+=======
+    remote_src: True
+...
+>>>>>>> pr9/master

@@ -10,7 +10,7 @@
       # the package already existed or not. If there output is none or the command failed to find
       # "Install ok installed" then it means the package wasn't installed beforehand and therfore
       # can be uninstalled after the precessing of this script.
-    - name: Uninstall the expect pacakges if installed before
+    - name: Uninstall the expect pacakges if not installed before running this playbook
       package: 
         name: "{{ item }}" 
         state: absent
