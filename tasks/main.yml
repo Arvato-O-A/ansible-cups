@@ -1,5 +1,4 @@
 ---
-
 - block:
     - name: include Debian / Ubuntu vars
       include_vars: debian.yml
@@ -14,25 +13,37 @@
       when: ansible_distribution == 'SLES' or ansible_distribution == 'openSUSE Leap'
 
     - name: Include - Pre-Install steps
-      include: cups_pre_install_debian.yml
-      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+      import_tasks: cups_pre_install_debian.yml
+      become: true
+      when: ansible_facts['os_family'] == 'Debian'
 
     - name: Include - Pre-Install steps
-      include: cups_pre_install_rpm.yml
-      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'SLES' or ansible_distribution == 'openSUSE Leap'
+      import_tasks: cups_pre_install_suse.yml
+      become: true
+      when: ansible_facts['os_family'] == 'Suse'
+
+    - name: Include - Pre-Install steps
+      import_tasks: cups_pre_install_rpm.yml
+      become: true
+      when: ansible_facts['os_family'] == 'RedHat'
 
     - name: Include - Install CUPS
-      include: cups_install.yml
+      import_tasks: cups_install.yml
+      become: true
 
     - name: Include - Configure CUPS
-      include: cups_configure.yml
+      import_tasks: cups_configure.yml
+      become: true
 
     - name: Include - Install PPDs.
-      include: ppd_install.yml
+      import_tasks: ppd_install.yml
+      become: true
 
     - name: Include - Uninstall any defined printers and install any printers and classes defined.
-      include: printer_and_class_install.yml
+      import_tasks: printer_and_class_install.yml
+      become: true
 
   always:
     - name: Include - CUPS Cleanup
-      include: cups_cleanup.yml
+      import_tasks: cups_cleanup.yml
+      become: true

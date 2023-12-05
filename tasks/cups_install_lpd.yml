@@ -2,20 +2,20 @@
 - name: Install xinetd for cups-lpd
   block:
     - name: Install xinetd for cups-lpd
-      package:
+      ansible.builtin.package:
         name: xinetd
         state: present
 
     - name: Create cups-lpd user - {{ cups_lpd_user }}
-      user:
+      ansible.builtin.user:
         name: "{{ cups_lpd_user }}"
-        append: yes
+        append: true
         groups: "{{ cups_admin_group }}"
 
     - name: Copying over cups-lpd using cups-lpd.j2 template
-      template:
+      ansible.builtin.template:
         src: "cups-lpd.j2"
         dest: "{{ cups_xinetd_location }}/cups-lpd"
         owner: root
         group: root
-        mode: 0644
+        mode: "0644"
