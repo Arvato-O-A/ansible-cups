@@ -42,5 +42,6 @@
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present
+  register: cups_expect_install
   with_items:
     - "{{ cups_expect_pkgs }}"
