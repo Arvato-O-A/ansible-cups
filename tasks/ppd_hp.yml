@@ -1,15 +1,15 @@
 ---
 - name: Install HPLIP
-  package:
+  ansible.builtin.package:
     name: hplip
     state: present
 
 - name: Copy hp-plugin-install.exp install script to {{ cups_tmp_location }}
-  copy:
+  ansible.builtin.copy:
     src: "files/hp-plugin-install.exp"
     dest: "{{ cups_tmp_location }}/hp-plugin-install.exp"
     mode: a+rx
 
 - name: Installing HP Plugin using an expect script to avoid user interaction
-  command: "{{cups_tmp_location}}/hp-plugin-install.exp"
+  ansible.builtin.command: "{{ cups_tmp_location }}/hp-plugin-install.exp"
 

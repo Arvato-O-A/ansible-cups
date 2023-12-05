@@ -21,7 +21,7 @@
       yum_repository:
         name: openprinting
         description: OpenPrinting LSB-based driver packages
-        baseurl: "{{ cups_openprinting_rpm_repo }}"
+        baseurl: "{{ cups_openprinting_yum_repo }}"
         gpgcheck: no
   when: cups_openprinting_required is defined and cups_openprinting_required
 

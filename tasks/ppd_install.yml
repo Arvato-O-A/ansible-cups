@@ -1,23 +1,22 @@
 ---
 - name: Include - Install Ricoh PPDs.
-  include: ppd_ricoh.yml
-  when: cups_ricoh_openprinting_ppds
-  when: 
+  ansible.builtin.include_tasks: ppd_ricoh.yml
+  when:
     - (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
     - cups_ricoh_openprinting_ppds
 
 - name: Include - HP PPDs - HPLIP.
-  include: ppd_hp.yml
+  ansible.builtin.include_tasks: ppd_hp.yml
   when: 
     - (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
     - cups_hplip
 
 - name: Copy PPDs in the ppds_to_be_copied folder
-  copy:
+  ansible.builtin.copy:
     src: "{{ cups_ppd_files_to_be_copied }}/"
     dest: "{{ cups_ppd_shared_location }}/"
     owner: root
     group: root
-    mode: 0644
-  when: cups_ppd_files_to_be_copied |default(false)
+    mode: "0644"
+  when: cups_ppd_files_to_be_copied | default(false)
 

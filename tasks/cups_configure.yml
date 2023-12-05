@@ -1,6 +1,6 @@
 ---
 - name: Copying over cupsd.conf using template if defined to {{ cups_etc_location }}/cupsd.conf.
-  template:
+  ansible.builtin.template:
     src: "{{ cups_cupsd_conf_template }}"
     dest: "{{ cups_etc_location }}/cupsd.conf"
     owner: "{{ cups_etc_files_perms_owner }}"
@@ -10,7 +10,7 @@
   when: cups_cupsd_conf_template|default(false)
 
 - name: Copying over cups-browsed.conf using template if defined to {{ cups_etc_location }}/cups-browsed.conf.
-  template:
+  ansible.builtin.template:
     src: "{{ cups_cups_browsed_conf_template }}"
     dest: "{{ cups_etc_location }}/cups-browsed.conf"
     owner: "{{ cups_etc_files_perms_owner }}"
@@ -20,7 +20,7 @@
   when: cups_cups_browsed_conf_template|default(false)
 
 - name: Copying over snmp.conf using template if defined to {{ cups_etc_location }}/snmp.conf.
-  template:
+  ansible.builtin.template:
     src: "{{ cups_snmp_conf_template }}"
     dest: "{{ cups_etc_location }}/snmp.conf"
     owner: "{{ cups_etc_files_perms_owner }}"
@@ -30,12 +30,13 @@
   when: cups_snmp_conf_template|default(false)
 
 - name: Include - Copy SSL certificates if necessary variables are defined - cups_source_ssl_{public,private}_key_location
-  include: cups_install_ssl_cert.yml
+  ansible.builtin.include_tasks: cups_install_ssl_cert.yml
   register: restart_required
   when: (cups_source_ssl_private_key_location|default(false)) and (cups_source_ssl_public_key_location|default(false))
 
+# TODO: better use a handler for this?!
 - name: restart cups service(s)
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: restarted
     enabled: yes

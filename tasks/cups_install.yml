@@ -1,8 +1,10 @@
 ---
 - name: Install CUPS
   package:
-    name: "{{ cups_packages_to_install }}"
+    name: "{{ item }}"
     state: present
+    with_items:
+      - "{{ cups_packages_to_install }}"
 
 - name: Ensure lpadmin group exists 
   group:
@@ -27,5 +29,5 @@
     - "{{ cups_lpadmin_users }}"
 
 - name: Include - CUPS-LPD
-  include: cups_install_lpd.yml
+  ansible.builtin.include_tasks: cups_install_lpd.yml
   when: cups_lpd
