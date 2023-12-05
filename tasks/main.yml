@@ -1,49 +1,49 @@
 ---
 - block:
-    - name: include Debian / Ubuntu vars
-      include_vars: debian.yml
+    - name: Include Debian / Ubuntu vars
+      ansible.builtin.include_vars: debian.yml
       when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-    - name: include Red Hat / CentOS vars
-      include_vars: redhat.yml
+    - name: Include Red Hat / CentOS vars
+      ansible.builtin.include_vars: redhat.yml
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-    - name: include Suse vars
-      include_vars: suse.yml
+    - name: Include Suse vars
+      ansible.builtin.include_vars: suse.yml
       when: ansible_distribution == 'SLES' or ansible_distribution == 'openSUSE Leap'
 
     - name: Include - Pre-Install steps
-      import_tasks: cups_pre_install_debian.yml
+      ansible.builtin.import_tasks: cups_pre_install_debian.yml
       become: true
       when: ansible_facts['os_family'] == 'Debian'
 
     - name: Include - Pre-Install steps
-      import_tasks: cups_pre_install_suse.yml
+      ansible.builtin.import_tasks: cups_pre_install_suse.yml
       become: true
       when: ansible_facts['os_family'] == 'Suse'
 
     - name: Include - Pre-Install steps
-      import_tasks: cups_pre_install_rpm.yml
+      ansible.builtin.import_tasks: cups_pre_install_rpm.yml
       become: true
       when: ansible_facts['os_family'] == 'RedHat'
 
     - name: Include - Install CUPS
-      import_tasks: cups_install.yml
+      ansible.builtin.import_tasks: cups_install.yml
       become: true
 
     - name: Include - Configure CUPS
-      import_tasks: cups_configure.yml
+      ansible.builtin.import_tasks: cups_configure.yml
       become: true
 
     - name: Include - Install PPDs.
-      import_tasks: ppd_install.yml
+      ansible.builtin.import_tasks: ppd_install.yml
       become: true
 
     - name: Include - Uninstall any defined printers and install any printers and classes defined.
-      import_tasks: printer_and_class_install.yml
+      ansible.builtin.import_tasks: printer_and_class_install.yml
       become: true
 
   always:
     - name: Include - CUPS Cleanup
-      import_tasks: cups_cleanup.yml
+      ansible.builtin.import_tasks: cups_cleanup.yml
       become: true
