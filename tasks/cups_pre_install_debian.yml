@@ -32,9 +32,9 @@
 # If the output is none or the command failed to find "install ok installed" then it means the package wasn't installed beforehand
 - name: Check and register if expect related packages are already installed.
   ansible.builtin.command: dpkg -s {{ item }} | grep 'install ok installed'
-  register: cups_expect_pkgs_already_installed
+  register: cups_expect_packages_already_installed
   with_items:
-    - "{{ cups_expect_pkgs }}"
+    - "{{ cups_expect_packages }}"
   changed_when: False
   failed_when: False
 
@@ -42,5 +42,6 @@
   ansible.builtin.apt:
     name: "{{ item }}"
     state: present
+  register: cups_expect_install
   with_items:
-    - "{{ cups_expect_pkgs }}"
+    - "{{ cups_expect_packages }}"
