@@ -2,15 +2,15 @@
 - block:
     - name: Include Debian / Ubuntu vars
       ansible.builtin.include_vars: debian.yml
-      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+      when: ansible_facts['os_family'] == 'Debian'
 
     - name: Include Red Hat / CentOS vars
       ansible.builtin.include_vars: redhat.yml
-      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+      when: ansible_facts['os_family'] == 'RedHat'
 
     - name: Include Suse vars
       ansible.builtin.include_vars: suse.yml
-      when: ansible_distribution == 'SLES' or ansible_distribution == 'openSUSE Leap'
+      when: ansible_facts['os_family'] == 'Suse'
 
     - name: Include - Pre-Install steps
       ansible.builtin.import_tasks: cups_pre_install_debian.yml
