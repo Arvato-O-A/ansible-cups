@@ -1,41 +1,42 @@
 ---
 - name: Install CUPS
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
   with_items:
-    - "{{ apt_cups_packages_to_install }}"
+    - '{{ apt_cups_packages_to_install }}'
   when: ansible_facts['os_family'] == 'Debian'
 
 - name: Install CUPS
   ansible.builtin.package:
-    name: "{{ item }}"
+    name: '{{ item }}'
     state: present
   with_items:
-    - "{{ yum_cups_packages_to_install }}"
+    - '{{ yum_cups_packages_to_install }}'
   when: ansible_facts['os_family'] == 'Suse' or ansible_facts['os_family'] == 'RedHat'
 
 - name: Ensure lpadmin group exists
   ansible.builtin.group:
-    name: "{{ cups_admin_group }}"
+    name: '{{ cups_admin_group }}'
     state: present
 
 - name: Ensure lpadmin permissions
   ansible.builtin.lineinfile:
-    path: "{{ item }}"
-    regexp: "^SystemGroup"
-    line: "SystemGroup {{ cups_admin_group }}"
+    path: '{{ item }}'
+    regexp: '^SystemGroup'
+    line: 'SystemGroup {{ cups_admin_group }}'
   with_items:
-    - "/etc/cups/cupsd.conf"
-    - "/etc/cups/cups-files.conf"
+    - '/etc/cups/cupsd.conf'
+    - '/etc/cups/cups-files.conf'
+  check_mode: no
 
 - name: Add accounts to lpadmin group (CUPS admin)
   ansible.builtin.user:
-    name: "{{ item }}"
+    name: '{{ item }}'
     append: true
-    groups: "{{ cups_admin_group }}"
+    groups: '{{ cups_admin_group }}'
   with_items:
-    - "{{ cups_lpadmin_users }}"
+    - '{{ cups_lpadmin_users }}'
 
 - name: Include - CUPS-LPD
   ansible.builtin.include_tasks: cups_install_lpd.yml
