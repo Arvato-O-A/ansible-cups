@@ -74,7 +74,7 @@ cups_services:
 cups_etc_location: "/etc/cups"
 cups_etc_files_perms_owner: "root"
 cups_etc_files_perms_group: "lp"
-cups_etc_files_mode: 0644
+cups_etc_files_mode: "0644"
 
 
 apt_cups_pre_install_packages:
