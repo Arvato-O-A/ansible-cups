@@ -1,8 +1,8 @@
 ---
 - block:
     - name: Delete temporary files at {{ cups_tmp_location }}
-      file:
-        path: "{{ cups_tmp_location }}"
+      ansible.builtin.file:
+        path: '{{ cups_tmp_location }}'
         state: absent
 
       # dpkg|grep was used in the initial command, and its status output is registered in
@@ -11,10 +11,9 @@
       # "Install ok installed" then it means the package wasn't installed beforehand and therfore
       # can be uninstalled after the precessing of this script.
     - name: Uninstall the expect packages if not installed before running this playbook
-      package: 
-        name: "{{ item }}" 
+      package:
+        name: '{{ item }}'
         state: absent
       when: cups_expect_install.changed
-      with_items: "{{ cups_expect_packages }}"
+      with_items: '{{ cups_expect_packages }}'
   ignore_errors: true
-
