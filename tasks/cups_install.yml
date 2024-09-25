@@ -28,7 +28,7 @@
   with_items:
     - '/etc/cups/cupsd.conf'
     - '/etc/cups/cups-files.conf'
-  when: not ansible_check_mode
+  ignore_errors: '{{ ansible_check_mode }}'
 
 - name: Add accounts to lpadmin group (CUPS admin)
   ansible.builtin.user:

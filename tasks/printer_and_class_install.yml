@@ -32,7 +32,7 @@
     options: '{{ item.options | default(omit) }}'
   with_items:
     - '{{ cups_printer_list }}'
-  when: not ansible_check_mode
+  ignore_errors: '{{ ansible_check_mode }}'
 
 - name: Create printer classes and assign printers to them
   cups_lpadmin:
@@ -45,4 +45,4 @@
     class_members: '{{ item.members }}'
   with_items:
     - '{{ cups_class_list }}'
-  when: not ansible_check_mode
+  ignore_errors: '{{ ansible_check_mode }}'
