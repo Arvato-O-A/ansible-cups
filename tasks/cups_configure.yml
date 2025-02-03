@@ -9,6 +9,16 @@
   register: restart_required
   when: cups_cupsd_conf_template|default(false)
 
+- name: Copying over cups-files.conf using template if defined to {{ cups_etc_location }}/cups-files.conf.
+  ansible.builtin.template:
+    src: "{{ cups_cupsfiles_conf_template }}"
+    dest: "{{ cups_etc_location }}/cups-files.conf"
+    owner: "{{ cups_etc_files_perms_owner }}"
+    group: "{{ cups_etc_files_perms_group }}"
+    mode: "{{ cups_etc_files_mode }}"
+  register: restart_required
+  when: cups_cupsfiles_conf_template | default(false)
+
 - name: Copying over cups-browsed.conf using template if defined to {{ cups_etc_location }}/cups-browsed.conf.
   ansible.builtin.template:
     src: "{{ cups_cups_browsed_conf_template }}"

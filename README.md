@@ -57,6 +57,7 @@
 * Optional templates:
     * They could've been setup as a simple file copy but accessing and adding ansible variables into it will not be possible. With this ansible\_managed, ansible\_fqdn, etc are accessible. The templates could also be simple text files with no variable declaration and it'll get copied over.
     * `cups_cupsd_conf_template`: For /etc/cups/cupsd.conf
+    * `cups_cupsfiles_conf_template`: For /etc/cups/cups-files.conf
     * `cups_cups_browsed_conf_template`: For /etc/cups/cups-browsed.conf
     * `cups_snmp_conf_template`: For /etc/cups/snmp.conf
 
