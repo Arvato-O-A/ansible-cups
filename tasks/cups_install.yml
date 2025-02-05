@@ -20,16 +20,6 @@
     name: '{{ cups_admin_group }}'
     state: present
 
-- name: Ensure lpadmin permissions
-  ansible.builtin.lineinfile:
-    path: '{{ item }}'
-    regexp: '^SystemGroup'
-    line: 'SystemGroup {{ cups_admin_group }}'
-  with_items:
-    - '/etc/cups/cupsd.conf'
-    - '/etc/cups/cups-files.conf'
-  when: not ansible_check_mode
-
 - name: Add accounts to lpadmin group (CUPS admin)
   ansible.builtin.user:
     name: '{{ item }}'
